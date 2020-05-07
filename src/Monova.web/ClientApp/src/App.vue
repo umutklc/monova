@@ -1,59 +1,99 @@
 <template>
-  <v-app>
+  <div class="layout-wrapper layout-1">
+    <!-- Layout inner -->
+    <div class="layout-inner">
+      <!-- Layout navbar -->
+      <nav
+        class="layout-navbar navbar navbar-expand-lg align-items-lg-center bg-navbar-theme container-p-x"
+        id="layout-navbar"
+      >
+        <a href="index.html" class="navbar-brand">HTML Starter</a>
 
-    <v-navigation-drawer persistent :mini-variant="miniVariant" :clipped="clipped" v-model="drawer" enable-resize-watcher fixed app>
-      <v-list>
-        <v-list-item value="true" v-for="(item, i) in items" :key="i" :to="item.link">
-          <v-list-item-action>
-            <v-icon v-html="item.icon"></v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title"></v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+        <!-- Sidenav toggle -->
+        <div class="layout-sidenav-toggle navbar-nav align-items-lg-center mr-auto mr-lg-4">
+          <a class="nav-item nav-link px-0 ml-2" href="javascript:void(0)">
+            <i class="ion ion-md-menu text-large align-middle"></i>
+          </a>
+        </div>
 
-    <v-app-bar app :clipped-left="clipped" color="info" dark>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-btn class="d-none d-lg-flex" icon @click.stop="miniVariant = !miniVariant">
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-      </v-btn>
-      <v-btn class="d-none d-lg-flex" icon @click.stop="clipped = !clipped">
-        <v-icon>web</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title"></v-toolbar-title>
-      <v-spacer></v-spacer>
-    </v-app-bar>
+        <!-- Navbar toggle -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#layout-navbar-collapse"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <v-content>
-      <router-view/>
-    </v-content>
+        <div class="navbar-collapse collapse" id="layout-navbar-collapse">
+          <div class="navbar-nav align-items-lg-center">
+            <div class="nav-item">
+              <a class="nav-link" href="#">Link 1</a>
+            </div>
+            <div class="nav-item">
+              <a class="nav-link" href="#">Link 2</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <!-- / Layout navbar -->
 
-    <v-footer app>
-      <span>&nbsp;Software Ateliers&nbsp;&copy;&nbsp;2020</span>
-    </v-footer>
+      <div class="layout-container">
+        <!-- Layout sidenav -->
+        <div id="layout-sidenav" class="layout-sidenav sidenav sidenav-vertical bg-sidenav-theme">
+          <ul class="sidenav-inner py-1">
+            <li class="sidenav-item" v-for="(item, i) in items" :key="i">
+              <router-link :to="item.link" exact-active-class="active" class="sidenav-link">
+                <v-icon :icon="item.icon" class="mr-2" />
+                <span>{{item.title}}</span>
+              </router-link>
+            </li>
+          </ul>
+        </div>
+        <!-- / Layout sidenav -->
 
-  </v-app>
+        <div class="layout-content">
+          <!-- Page content -->
+          <div class="container-fluid flex-grow-1 container-p-y">
+            <router-view />
+          </div>
+          <!-- / Page content -->
+
+          <!-- Layout footer -->
+          <nav class="layout-footer footer bg-footer-theme">
+            <div class="container-fluid container-p-x pb-3">
+              <a href="#" class="footer-link pt-3">Link 1</a>
+              <a href="#" class="footer-link pt-3 ml-4">Link 2</a>
+            </div>
+          </nav>
+          <!-- / Layout footer -->
+        </div>
+      </div>
+    </div>
+    <!-- Layout inner -->
+
+    <div class="layout-overlay layout-sidenav-toggle"></div>
+  </div>
 </template>
 
 <script lang="ts">
-import HelloWorld from '@/components/HelloWorld.vue';
-import { Component, Vue } from 'vue-property-decorator';
+import HelloWorld from "@/components/HelloWorld.vue";
+import { Component, Vue } from "vue-property-decorator";
 
 @Component({
-  components: { HelloWorld },
+  components: { HelloWorld }
 })
 export default class App extends Vue {
   private clipped: boolean = true;
   private drawer: boolean = true;
   private miniVariant: boolean = false;
   private right: boolean = true;
-  private title: string = 'ASP.NET Core Vue Starter';
+  private title: string = "Monova";
   private items = [
-    { title: 'Home', icon: 'home', link: '/' },
-    { title: 'Counter', icon: 'touch_app', link: '/counter' },
-    { title: 'Fetch data', icon: 'get_app', link: '/fetch-data' },
+    { title: "Home", icon: "home", link: "/" },
+    { title: "Counter", icon: "touch_app", link: "/counter" },
+    { title: "Fetch data", icon: "get_app", link: "/fetch-data" }
   ];
 }
 </script>
